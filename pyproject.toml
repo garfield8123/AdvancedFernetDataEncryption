@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Encrpytion"
+version = "0.0.1"
+authors = [
+  { name="garfield8123", email="garfield8123@gmail.com" },
+]
+description = "An Encrpytion that uses the Fernet Encrpytion"
+readme = "README.md"
+requires-python = ">=3.5"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/garfield8123/Encrpytion"
+"Bug Tracker" = "https://github.com/garfield8123/Encrpytion/issues"
