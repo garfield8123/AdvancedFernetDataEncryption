@@ -12,7 +12,7 @@ An encryption that uses the Fernet assymetric key generator and random values to
 
 ## **Basic Usage Example**
 ```python
-from AdvancedFernetDataEncryption import *
+from Encryption.AdvancedFernetDataEncryption import *
 
 Token = passwordToken()
 text = "Hello I would like to be encrypted

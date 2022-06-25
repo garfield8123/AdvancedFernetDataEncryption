@@ -1,4 +1,4 @@
-from AdvancedFernetDataEncryption import *
+from Encryption.AdvancedFernetDataEncryption import *
 import json
 
 # Generates the Token and stores the random token into the Token.json file 
