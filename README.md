@@ -22,3 +22,6 @@ unencryptedText = dataDecrpytion(encryptedText)
 ```
 
 When run these following lines the text will be encrypted and would be unecryptable without the usage of the Token generated, which is randomly generated for each encrypted text.
+
+## **Example of Encryption Result**
+<img width="848" alt="image" src="https://user-images.githubusercontent.com/34069094/199623092-733cfb1f-a78d-43d5-add9-47c879c6e06a.png">
