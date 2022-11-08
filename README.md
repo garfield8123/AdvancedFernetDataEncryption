@@ -7,6 +7,10 @@ An encryption that uses the Fernet symetric key generator and random values to c
 - dataEncryption(<PlainTxt>): Generates a random 120 length string and shoves it randomly in the PlainTxt and shoves the token randomly in the 120 length string generated. Then all of this information is encrypted with the fernet algorithm. `return <string>`
 - dataDecrpytion(<EncyptedTxt>): Decodes the giant encrypted text generated and creates a plain text version `return <String>`
 - decryption(<EncryptedTxt>): Decodes the basic encrypted text generated and creates a plain text version `return <String>` Recommended to use only this method for the generated session token
+  
+## **Package Installation**
+  pip install AdvancedFernetDataEncryption
+More Info can be found on pypi.org [here](https://pypi.org/project/AdvancedFernetDataEncryption/)
 
 ## **Basic Usage Example**
 ```python
