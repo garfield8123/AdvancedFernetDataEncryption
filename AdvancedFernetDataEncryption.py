@@ -4,9 +4,11 @@ from cryptography.fernet import Fernet
 from datetime import datetime
 import string, random
 
-def passwordToken():
+def passwordToken(MinLength=100, MaxLength=120):
     #---- Generates a random token that is stored that will be used to encrypt user data ----
-    passwordToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(100,120)))
+    print(MinLength)
+    print(MaxLength)
+    passwordToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(MinLength,MaxLength)))
     RandomTextPoint = random.randrange(len(passwordToken))
     RandomInputToken, RandomInputKey = encryption(''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(100,120))))
     randominputprivateKey =  RandomInputKey.decode("UTF-8") + RandomInputToken.decode("UTF-8")  
@@ -14,22 +16,22 @@ def passwordToken():
     privateToken, privateKey = encryption(text)
     return privateKey.decode("UTF-8") + ":" + privateToken.decode("UTF-8")   
 
-def generateSessionToken(username):
+def generateSessionToken(username, MinLength=100, MaxLength=120):
     #---- Generates a random 128 character long SessionToken 
-    sessionToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for _ in range(random.randint(100,120)))
+    sessionToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for _ in range(random.randint(MinLength,MaxLength)))
     return encryption(username + ":" + sessionToken)
 
-def dataEncrpytion(text):
+def dataEncrpytion(text, MinLength=100, MaxLength=120):
     #---- Generate a random 128 character password with password to show on the servers and files to save ----
-    RandomText = ''.join(random.choice(text + string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(100,120)))
+    RandomText = ''.join(random.choice(text + string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(MinLength,MaxLength)))
     #---- Creates a random number within the bounds of the length of passwords (basically shoves text in a random location) ----
     TextPoint = random.randrange(len(text))
     RandomTextPoint = random.randrange(len(RandomText))
-    RandomToken = passwordToken()
+    RandomToken = passwordToken(MinLength, MaxLength)
     #---- Combine all the random points and text together to store this password ----
     text = text[:TextPoint] + RandomText[:RandomTextPoint] + RandomToken + RandomText[RandomTextPoint:] + text[TextPoint:]
     TextToken, TextKey = encryption(text)
-    timestamp = datetime.utcfromtimestamp(Fernet(str.encode(RandomToken.split(":")[0])).extract_timestamp(str.encode(RandomToken.split(":")[1]))).strftime(''.join(random.choice('%d%H%d%M%d%S') for _ in range(20,30)))
+    timestamp = datetime.utcfromtimestamp(Fernet(str.encode(RandomToken.split(":")[0])).extract_timestamp(str.encode(RandomToken.split(":")[1]))).strftime(''.join(random.choice('%d%H%d%M%d%S') for _ in range(int(MinLength/4),int(MaxLength/2))))
     RandomTextToken, RandomTextKey = encryption(RandomText)
     return TextKey.decode("utf-8") +":" + timestamp[0:random.randint(1, len(timestamp))] +"=" + TextToken.decode("utf-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] +"=" + RandomTextToken.decode("UTF-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] + "=" + RandomTextKey.decode("UTF-8") +":" + timestamp[0:random.randint(1, len(timestamp))]  + "=" + RandomToken
 

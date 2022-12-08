@@ -17,7 +17,7 @@ More Info can be found on pypi.org [here](https://pypi.org/project/AdvancedFerne
 from Encryption.AdvancedFernetDataEncryption import *
 
 text = "Hello I would like to be encrypted
-encryptedText = dataEncryption(text)
+encryptedText = dataEncryption(text, MinLength=20, MaxLength=100)
 unencryptedText = dataDecrpytion(encryptedText)
 ```
 
