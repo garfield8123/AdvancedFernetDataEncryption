@@ -6,8 +6,6 @@ import string, random
 
 def passwordToken(MinLength=100, MaxLength=120):
     #---- Generates a random token that is stored that will be used to encrypt user data ----
-    print(MinLength)
-    print(MaxLength)
     passwordToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(MinLength,MaxLength)))
     RandomTextPoint = random.randrange(len(passwordToken))
     RandomInputToken, RandomInputKey = encryption(''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(100,120))))
@@ -31,9 +29,9 @@ def dataEncrpytion(text, MinLength=100, MaxLength=120):
     #---- Combine all the random points and text together to store this password ----
     text = text[:TextPoint] + RandomText[:RandomTextPoint] + RandomToken + RandomText[RandomTextPoint:] + text[TextPoint:]
     TextToken, TextKey = encryption(text)
-    timestamp = datetime.utcfromtimestamp(Fernet(str.encode(RandomToken.split(":")[0])).extract_timestamp(str.encode(RandomToken.split(":")[1]))).strftime(''.join(random.choice('%d%H%d%M%d%S') for _ in range(int(MinLength/4),int(MaxLength/2))))
+    timestamp = datetime.utcfromtimestamp(Fernet(str.encode(RandomToken.split(":")[0])).extract_timestamp(str.encode(RandomToken.split(":")[1]))).strftime(''.join(random.choice(['%d','%H','%d','%M','%d','%S']) for _ in range(int(MinLength/4),int(MaxLength/2))))
     RandomTextToken, RandomTextKey = encryption(RandomText)
-    return TextKey.decode("utf-8") +":" + timestamp[0:random.randint(1, len(timestamp))] +"=" + TextToken.decode("utf-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] +"=" + RandomTextToken.decode("UTF-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] + "=" + RandomTextKey.decode("UTF-8") +":" + timestamp[0:random.randint(1, len(timestamp))]  + "=" + RandomToken
+    return TextKey.decode("utf-8") +":" + timestamp[0:random.randint(1, len(timestamp))] +"/" + TextToken.decode("utf-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] +"/" + RandomTextToken.decode("UTF-8") + ":" + timestamp[0:random.randint(1, len(timestamp))] + "/" + RandomTextKey.decode("UTF-8") +":" + timestamp[0:random.randint(1, len(timestamp))]  + "/" + RandomToken
 
 def encryption(text):
     #---- Changes string to byte format ----
@@ -48,7 +46,7 @@ def encryption(text):
 
 def dataDecryption(EncryptedText):
     ShortenedText = EncryptedText.split(":")[len(EncryptedText.split(":"))-2]
-    RandomKey = ShortenedText[ShortenedText.index("=")+1:len(ShortenedText)]
+    RandomKey = ShortenedText[ShortenedText.index("/")+1:len(ShortenedText)]
     RandomToken = EncryptedText.split(":")[len(EncryptedText.split(":"))-1]
     timestamp = datetime.utcfromtimestamp(Fernet(str.encode(RandomKey)).extract_timestamp(str.encode(RandomToken))).strftime('%d%H:%d%M:%d%S')
     Textkey = EncryptedText.split(":")[0]
@@ -59,9 +57,9 @@ def dataDecryption(EncryptedText):
 
 def CleanToken(TokenString, timestamp):
     for x in timestamp +"%:dHMS":
-        if x+"=" in TokenString:
-            cleanToken = TokenString[TokenString.index(x+"=") +2: len(TokenString)]
-            if TokenString.index(x+"=") < 30:
+        if x+"/" in TokenString:
+            cleanToken = TokenString[TokenString.index(x+"/") +2: len(TokenString)]
+            if TokenString.index(x+"/") < 30:
                 break
     return cleanToken
 
