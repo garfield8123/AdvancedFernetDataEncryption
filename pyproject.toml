@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "AdvancedFernetDataEncryption"
-version = "1.1"
+version = "1.1.2"
 authors = [
-  {name="garfield8123", email="garfield8123@gmail.com"},
+  {name="garfield8123", email="orangegarfieldspam01@gmail.com"},
 ]
 description = "An encryption that uses the Fernet assymetric key generator and random values to create a secure token and key that can be stored and still be unreadable to any user."
 readme = "README.md"
