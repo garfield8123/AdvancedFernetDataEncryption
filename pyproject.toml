@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "AdvancedFernetDataEncryption"
-version = "1.1.2"
+version = "1.2.1"
 authors = [
   {name="garfield8123", email="orangegarfieldspam01@gmail.com"},
 ]
