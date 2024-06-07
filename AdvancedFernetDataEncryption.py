@@ -6,9 +6,9 @@ import string, random
 
 def passwordToken(MinLength=100, MaxLength=120):
     #---- Generates a random token that is stored that will be used to encrypt user data ----
-    passwordToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(MinLength,MaxLength)))
+    passwordToken = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for _ in range(random.randint(MinLength,MaxLength)))
     RandomTextPoint = random.randrange(len(passwordToken))
-    RandomInputToken, RandomInputKey = encryption(''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(100,120))))
+    RandomInputToken, RandomInputKey = encryption(''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for _ in range(random.randint(100,120))))
     randominputprivateKey =  RandomInputKey.decode("UTF-8") + RandomInputToken.decode("UTF-8")  
     text = passwordToken[:RandomTextPoint] + randominputprivateKey + passwordToken[RandomTextPoint:]
     privateToken, privateKey = encryption(text)
