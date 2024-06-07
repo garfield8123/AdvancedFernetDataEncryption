@@ -21,7 +21,7 @@ def generateSessionToken(username, MinLength=100, MaxLength=120):
 
 def dataEncryption(text, MinLength=100, MaxLength=120):
     #---- Generate a random 128 character password with password to show on the servers and files to save ----
-    RandomText = ''.join(random.choice(text + string.ascii_lowercase + string.digits + string.ascii_uppercase + string.punctuation) for _ in range(random.randint(MinLength,MaxLength)))
+    RandomText = ''.join(random.choice(text + string.ascii_lowercase + string.digits + string.ascii_uppercase) for _ in range(random.randint(MinLength,MaxLength)))
     #---- Creates a random number within the bounds of the length of passwords (basically shoves text in a random location) ----
     TextPoint = random.randrange(len(text))
     RandomTextPoint = random.randrange(len(RandomText))
